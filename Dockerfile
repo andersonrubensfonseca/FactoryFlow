@@ -12,7 +12,7 @@ RUN cp .env.example .env \
     && php artisan wayfinder:generate --with-form
 
 # ---------- assets (Node) ----------
-FROM node:22-alpine AS assets
+FROM node:22-slim AS assets
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
