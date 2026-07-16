@@ -24,6 +24,8 @@ class Order extends Model
         'zip_code',
         'asaas_customer_id',
         'asaas_payment_id',
+        'invoice_url',
+        'bank_slip_url',
     ];
 
     protected function casts(): array
