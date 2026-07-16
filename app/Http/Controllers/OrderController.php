@@ -27,6 +27,7 @@ class OrderController extends Controller
                 'total' => (float) $order->total,
                 'payment_method' => $order->payment_method,
                 'invoice_url' => $order->invoice_url,
+                'bank_slip_url' => $order->bank_slip_url,
                 'items' => $order->items->map(fn ($item) => [
                     'product_name' => $item->product_name,
                     'quantity' => $item->quantity,
