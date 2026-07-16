@@ -10,4 +10,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::resource('products', ProductController::class)->except('show');
     Route::get('theme', [ThemeController::class, 'edit'])->name('theme.edit');
     Route::put('theme', [ThemeController::class, 'update'])->name('theme.update');
+    Route::get('pedidos', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('pedidos/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::patch('pedidos/{order}/pronto-para-envio', [OrderController::class, 'markReadyToShip'])->name('orders.ready-to-ship');
 });

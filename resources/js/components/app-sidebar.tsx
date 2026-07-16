@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid, Package, Tags, Palette } from 'lucide-react';
+import { BookOpen, FolderGit2, LayoutGrid, Package, Tags, Palette, ClipboardList } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -17,6 +17,7 @@ import { dashboard } from '@/routes';
 import { index as adminCategoriesIndex } from '@/routes/admin/categories';
 import { index as adminProductsIndex } from '@/routes/admin/products';
 import { edit as themeEdit } from '@/routes/admin/theme';
+import { index as adminOrdersIndex } from '@/routes/admin/orders';
 import type { NavItem } from '@/types';
 
 const footerNavItems: NavItem[] = [
@@ -47,6 +48,7 @@ export function AppSidebar() {
         mainNavItems.push(
             { title: 'Categorias', href: adminCategoriesIndex(), icon: Tags },
             { title: 'Produtos', href: adminProductsIndex(), icon: Package },
+            { title: 'Pedidos', href: adminOrdersIndex(), icon: ClipboardList },
             { title: 'Paleta de cores', href: themeEdit(), icon: Palette },
         );
     }
