@@ -1,25 +1,28 @@
 # syntax=docker/dockerfile:1
 
-# ---------- vendor (PHP) ----------
+# ---------- vendor (PHP deps) ----------
 FROM composer:2 AS vendor
 WORKDIR /app
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist --no-autoloader
 COPY . .
 RUN composer dump-autoload --optimize --no-dev
-RUN cp .env.example .env \
-    && php artisan key:generate --no-interaction \
-    && php artisan wayfinder:generate --with-form
 
-# ---------- assets (Node) ----------
-FROM node:22-slim AS assets
+# ---------- assets (PHP + Node juntos, pois o plugin Wayfinder roda `php artisan` durante o build) ----------
+FROM php:8.4-cli AS assets
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl gnupg \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=vendor /app/vendor ./vendor
 COPY . .
-COPY --from=vendor /app/resources/js/actions ./resources/js/actions
-COPY --from=vendor /app/resources/js/routes ./resources/js/routes
-COPY --from=vendor /app/resources/js/wayfinder ./resources/js/wayfinder
+RUN cp .env.example .env && php artisan key:generate --no-interaction
+
+RUN npm ci
 RUN npm run build
 
 # ---------- runtime ----------
