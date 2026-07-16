@@ -1,4 +1,5 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePoll  } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
@@ -34,6 +35,14 @@ const statusLabels: Record<string, string> = {
 };
 
 export default function OrderShow({ order, pix }: OrderPageProps) {
+    const { stop } = usePoll(5000, { only: ['order', 'pix'] });
+
+    useEffect(() => {
+        if (order.status !== 'pending') {
+            stop();
+        }
+    }, [order.status, stop]);
+
     return (
         <>
             <Head title={`Pedido #${order.id}`} />
@@ -48,6 +57,7 @@ export default function OrderShow({ order, pix }: OrderPageProps) {
                 {order.status === 'pending' && order.payment_method === 'PIX' && pix && (
                     <div className="mb-8 flex flex-col items-center gap-3 rounded-xl border p-6 text-center">
                         <p className="text-sm text-muted-foreground">Escaneie o QR Code ou copie o código Pix:</p>
+                        <p className="text-xs text-muted-foreground">Atualizando automaticamente...</p>
                         <img
                             src={`data:image/png;base64,${pix.encodedImage}`}
                             alt="QR Code Pix"
