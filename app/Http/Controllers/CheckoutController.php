@@ -95,6 +95,7 @@ class CheckoutController extends Controller
         $order->update([
             'asaas_payment_id' => $payment['id'],
             'invoice_url' => $payment['invoiceUrl'] ?? null,
+            'bank_slip_url' => $payment['bankSlipUrl'] ?? null,
         ]);
 
         $cart->clear();

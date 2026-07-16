@@ -16,6 +16,7 @@ interface OrderPageProps {
         total: number;
         payment_method: string;
         invoice_url: string | null;
+        bank_slip_url: string | null;
         items: OrderItem[];
     };
     pix: { encodedImage: string; payload: string; expirationDate: string } | null;
@@ -74,12 +75,17 @@ export default function OrderShow({ order, pix }: OrderPageProps) {
                     </div>
                 )}
 
-                {order.status === 'pending' && order.payment_method === 'BOLETO' && order.invoice_url && (
-                    <div className="mb-8 flex flex-col items-center gap-3 rounded-xl border p-6 text-center">
-                        <p className="text-sm text-muted-foreground">Seu boleto está pronto.</p>
-                        <Button asChild size="sm">
-                            <a href={order.invoice_url} target="_blank" rel="noreferrer">
-                                Ver boleto
+                {order.status === 'pending' && order.payment_method === 'BOLETO' && order.bank_slip_url && (
+                    <div className="mb-8 flex flex-col items-center gap-3 rounded-xl border p-6">
+                        <p className="text-sm text-muted-foreground">Seu boleto está pronto:</p>
+                        <iframe
+                            src={order.bank_slip_url}
+                            title="Boleto"
+                            className="h-[600px] w-full rounded-lg border"
+                        />
+                        <Button asChild size="sm" variant="outline">
+                            <a href={order.bank_slip_url} target="_blank" rel="noreferrer" download>
+                                Baixar boleto
                             </a>
                         </Button>
                     </div>
