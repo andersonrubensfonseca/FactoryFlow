@@ -3,6 +3,7 @@ import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { dashboard, home, login, register } from '@/routes';
 import { index as cartIndex } from '@/routes/cart';
+import { index as ordersIndex } from '@/routes/orders';
 
 export default function StoreHeader() {
     const { auth, cart } = usePage().props;
@@ -30,9 +31,14 @@ export default function StoreHeader() {
                     </Link>
 
                     {auth.user ? (
-                        <Button asChild size="sm">
-                            <Link href={dashboard()}>Dashboard</Link>
-                        </Button>
+                        <>
+                            <Link href={ordersIndex()} className="text-sm text-muted-foreground hover:text-foreground">
+                                Meus pedidos
+                            </Link>
+                            <Button asChild size="sm">
+                                <Link href={dashboard()}>Dashboard</Link>
+                            </Button>
+                        </>
                     ) : (
                         <>
                             <Button asChild variant="ghost" size="sm">

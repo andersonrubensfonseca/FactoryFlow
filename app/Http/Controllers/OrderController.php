@@ -10,6 +10,27 @@ use Inertia\Response;
 
 class OrderController extends Controller
 {
+
+    public function index(Request $request): Response
+    {
+        $orders = $request->user()
+            ->orders()
+            ->latest()
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (Order $order) => [
+                'id' => $order->id,
+                'status' => $order->status,
+                'total' => (float) $order->total,
+                'payment_method' => $order->payment_method,
+                'created_at' => $order->created_at->format('d/m/Y'),
+            ]);
+
+        return Inertia::render('store/orders/index', [
+            'orders' => $orders,
+        ]);
+    }
+
     public function show(Request $request, Order $order, AsaasClient $asaas): Response
     {
         abort_unless($order->user_id === $request->user()->id, 403);
