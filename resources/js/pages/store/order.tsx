@@ -91,6 +91,19 @@ export default function OrderShow({ order, pix }: OrderPageProps) {
                     </div>
                 )}
 
+                {order.status === 'pending' && order.payment_method === 'CREDIT_CARD' && order.invoice_url && (
+                    <div className="mb-8 flex flex-col items-center gap-3 rounded-xl border p-6 text-center">
+                        <p className="text-sm text-muted-foreground">
+                            Finalize o pagamento com cartão numa página segura do ASAAS.
+                        </p>
+                        <Button asChild size="lg">
+                            <a href={order.invoice_url} target="_blank" rel="noreferrer">
+                                Pagar com cartão
+                            </a>
+                        </Button>
+                    </div>
+                )}
+
                 <div className="flex flex-col gap-2 rounded-xl border p-4">
                     {order.items.map((item, index) => (
                         <div key={index} className="flex justify-between text-sm">

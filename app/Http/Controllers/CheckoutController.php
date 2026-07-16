@@ -8,7 +8,6 @@ use App\Services\AsaasClient;
 use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -31,7 +30,7 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request, CartService $cart, AsaasClient $asaas): RedirectResponse | HttpResponse
+    public function store(Request $request, CartService $cart, AsaasClient $asaas): RedirectResponse
     {
         $items = $cart->items();
 
@@ -100,10 +99,6 @@ class CheckoutController extends Controller
         ]);
 
         $cart->clear();
-
-        if ($validated['payment_method'] === 'CREDIT_CARD') {
-            return Inertia::location($payment['invoiceUrl']);
-        }
 
         return to_route('orders.show', $order);
     }
