@@ -8,6 +8,7 @@ use App\Services\AsaasClient;
 use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -30,7 +31,7 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request, CartService $cart, AsaasClient $asaas): RedirectResponse
+    public function store(Request $request, CartService $cart, AsaasClient $asaas): RedirectResponse | HttpResponse
     {
         $items = $cart->items();
 
