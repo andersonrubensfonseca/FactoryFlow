@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PaymentConfirmed;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class AsaasWebhookController extends Controller
@@ -35,6 +37,8 @@ class AsaasWebhookController extends Controller
             foreach ($order->items as $item) {
                 $item->product?->decrement('stock', $item->quantity);
             }
+
+            Mail::to($order->user)->send(new PaymentConfirmed($order));
         }
 
         $order->update(['status' => $newStatus]);

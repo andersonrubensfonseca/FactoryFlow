@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\AsaasClient;
@@ -9,6 +10,7 @@ use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -99,6 +101,8 @@ class CheckoutController extends Controller
         ]);
 
         $cart->clear();
+
+        Mail::to($user)->send(new OrderCreated($order));
 
         return to_route('orders.show', $order);
     }
