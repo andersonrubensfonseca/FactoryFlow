@@ -57,6 +57,10 @@ class ProductController extends Controller
             'stock' => ['required', 'integer', 'min:0'],
             'min_stock' => ['required', 'integer', 'min:0'],
             'image' => ['nullable', 'image', 'max:4096'],
+            'weight' => ['required', 'integer', 'min:1'],
+            'height' => ['required', 'integer', 'min:1'],
+            'width' => ['required', 'integer', 'min:1'],
+            'length' => ['required', 'integer', 'min:1'],
         ]);
 
         $imagePath = $request->file('image')?->store('products', 'r2');
@@ -83,6 +87,10 @@ class ProductController extends Controller
                 'stock' => $product->stock,
                 'min_stock' => $product->min_stock,
                 'image_url' => $product->image_url,
+                'weight' => $product->weight,
+                'height' => $product->height,
+                'width' => $product->width,
+                'length' => $product->length,
             ],
             'categories' => Category::query()->get(['id', 'name']),
         ]);
@@ -99,6 +107,10 @@ class ProductController extends Controller
             'stock' => ['required', 'integer', 'min:0'],
             'min_stock' => ['required', 'integer', 'min:0'],
             'image' => ['nullable', 'image', 'max:4096'],
+            'weight' => ['required', 'integer', 'min:1'],
+            'height' => ['required', 'integer', 'min:1'],
+            'width' => ['required', 'integer', 'min:1'],
+            'length' => ['required', 'integer', 'min:1'],
         ]);
 
         if ($request->hasFile('image')) {

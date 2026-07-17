@@ -25,6 +25,10 @@ class Product extends Model
         'min_stock',
         'rating',
         'image_path',
+        'weight',
+        'height',
+        'width',
+        'length',
     ];
 
     /**
