@@ -30,7 +30,7 @@ class MelhorEnvioController extends Controller
         ]);
     }
 
-    public function connect(Request $request): RedirectResponse
+    public function connect(Request $request): HttpResponse
     {
         $state = Str::random(40);
         $request->session()->put('melhor_envio_state', $state);
@@ -43,9 +43,8 @@ class MelhorEnvioController extends Controller
             'state' => $state,
         ]);
 
-        return redirect(config('services.melhor_envio.base_url')."/oauth/authorize?{$query}");
+        return Inertia::location(config('services.melhor_envio.base_url')."/oauth/authorize?{$query}");
     }
-
     public function callback(Request $request): RedirectResponse
     {
         abort_unless(
