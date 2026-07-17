@@ -41,4 +41,11 @@ return [
         'webhook_token' => env('ASAAS_WEBHOOK_TOKEN'),
     ],
 
+    'melhor_envio' => [
+        'client_id' => env('MELHOR_ENVIO_CLIENT_ID'),
+        'client_secret' => env('MELHOR_ENVIO_CLIENT_SECRET'),
+        'base_url' => env('MELHOR_ENVIO_BASE_URL', 'https://sandbox.melhorenvio.com.br'),
+        'redirect_uri' => env('MELHOR_ENVIO_REDIRECT_URI'),
+    ],
+
 ];

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\MelhorEnvioController; 
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -14,4 +15,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::get('pedidos', [OrderController::class, 'index'])->name('orders.index');
     Route::get('pedidos/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('pedidos/{order}/pronto-para-envio', [OrderController::class, 'markReadyToShip'])->name('orders.ready-to-ship');
+    Route::get('melhor-envio', [MelhorEnvioController::class, 'status'])->name('melhor-envio.status');
+    Route::get('melhor-envio/connect', [MelhorEnvioController::class, 'connect'])->name('melhor-envio.connect');
+    Route::get('melhor-envio/callback', [MelhorEnvioController::class, 'callback'])->name('melhor-envio.callback');
 });
