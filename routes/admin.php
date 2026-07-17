@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\MelhorEnvioController; 
+use App\Http\Controllers\Admin\ShippingOriginController; 
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -18,4 +19,6 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::get('melhor-envio', [MelhorEnvioController::class, 'status'])->name('melhor-envio.status');
     Route::get('melhor-envio/connect', [MelhorEnvioController::class, 'connect'])->name('melhor-envio.connect');
     Route::get('melhor-envio/callback', [MelhorEnvioController::class, 'callback'])->name('melhor-envio.callback');
+    Route::get('shipping-origin', [ShippingOriginController::class, 'edit'])->name('shipping-origin.edit');
+    Route::put('shipping-origin', [ShippingOriginController::class, 'update'])->name('shipping-origin.update');
 });

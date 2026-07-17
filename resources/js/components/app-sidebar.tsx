@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid, Package, Tags, Palette, ClipboardList, Truck } from 'lucide-react';
+import { BookOpen, FolderGit2, LayoutGrid, Package, Tags, Palette, ClipboardList, Truck, Warehouse } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -19,6 +19,7 @@ import { index as adminProductsIndex } from '@/routes/admin/products';
 import { edit as themeEdit } from '@/routes/admin/theme';
 import { index as adminOrdersIndex } from '@/routes/admin/orders';
 import { status as melhorEnvioStatus } from '@/routes/admin/melhor-envio';
+import { edit as shippingOriginEdit } from '@/routes/admin/shipping-origin';
 import type { NavItem } from '@/types';
 
 const footerNavItems: NavItem[] = [
@@ -52,6 +53,7 @@ export function AppSidebar() {
             { title: 'Pedidos', href: adminOrdersIndex(), icon: ClipboardList },
             { title: 'Melhor Envio', href: melhorEnvioStatus(), icon: Truck },
             { title: 'Paleta de cores', href: themeEdit(), icon: Palette },
+            { title: 'Endereço de origem', href: shippingOriginEdit(), icon: Warehouse },
         );
     }
 
