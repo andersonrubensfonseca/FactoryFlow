@@ -103,36 +103,36 @@ export default function ProductsEdit({ product, categories }: ProductsEditProps)
                                     <Input id="min_stock" name="min_stock" type="number" min="0" defaultValue={product.min_stock} required />
                                     <InputError message={errors.min_stock} />
                                 </div>
-                                <div className="grid grid-cols-4 gap-4">
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="weight">Peso (g)</Label>
-                                        <Input id="weight" name="weight" type="number" min="1" required defaultValue={product.weight} />
-                                        <InputError message={errors.weight} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="height">Altura (cm)</Label>
-                                        <Input id="height" name="height" type="number" min="1" required defaultValue={product.height} />
-                                        <InputError message={errors.height} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="width">Largura (cm)</Label>
-                                        <Input id="width" name="width" type="number" min="1" required defaultValue={product.width} />
-                                        <InputError message={errors.width} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="length">Comprimento (cm)</Label>
-                                        <Input id="length" name="length" type="number" min="1" required defaultValue={product.length} />
-                                        <InputError message={errors.length} />
-                                    </div>
+                            </div>
+                            <div className="grid grid-cols-4 gap-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="weight">Peso (g)</Label>
+                                    <Input id="weight" name="weight" type="number" min="1" required defaultValue={product.weight} />
+                                    <InputError message={errors.weight} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="image">Imagem</Label>
-                                    {product.image_url && (
-                                        <img src={product.image_url} alt={product.name} className="h-32 w-32 rounded-md border object-cover" />
-                                    )}
-                                    <input id="image" name="image" type="file" accept="image/*" className={fieldClassName} />
-                                    <InputError message={errors.image} />
+                                    <Label htmlFor="height">Altura (cm)</Label>
+                                    <Input id="height" name="height" type="number" min="1" required defaultValue={product.height} />
+                                    <InputError message={errors.height} />
                                 </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="width">Largura (cm)</Label>
+                                    <Input id="width" name="width" type="number" min="1" required defaultValue={product.width} />
+                                    <InputError message={errors.width} />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="length">Comprimento (cm)</Label>
+                                    <Input id="length" name="length" type="number" min="1" required defaultValue={product.length} />
+                                    <InputError message={errors.length} />
+                                </div>
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="image">Imagem</Label>
+                                {product.image_url && (
+                                    <img src={product.image_url} alt={product.name} className="h-32 w-32 rounded-md border object-cover" />
+                                )}
+                                <input id="image" name="image" type="file" accept="image/*" className={fieldClassName} />
+                                <InputError message={errors.image} />
                             </div>
 
                             <div className="flex gap-3">

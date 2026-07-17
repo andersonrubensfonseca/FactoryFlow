@@ -71,33 +71,33 @@ export default function ProductsCreate({ categories }: ProductsCreateProps) {
                                     <Input id="min_stock" name="min_stock" type="number" min="0" required defaultValue={0} />
                                     <InputError message={errors.min_stock} />
                                 </div>
-                                <div className="grid grid-cols-4 gap-4">
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="weight">Peso (g)</Label>
-                                        <Input id="weight" name="weight" type="number" min="1" required defaultValue={1} />
-                                        <InputError message={errors.weight} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="height">Altura (cm)</Label>
-                                        <Input id="height" name="height" type="number" min="1" required defaultValue={1} />
-                                        <InputError message={errors.height} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="width">Largura (cm)</Label>
-                                        <Input id="width" name="width" type="number" min="1" required defaultValue={1} />
-                                        <InputError message={errors.width} />
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="length">Comprimento (cm)</Label>
-                                        <Input id="length" name="length" type="number" min="1" required defaultValue={1} />
-                                        <InputError message={errors.length} />
-                                    </div>
+                            </div>
+                            <div className="grid grid-cols-4 gap-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="weight">Peso (g)</Label>
+                                    <Input id="weight" name="weight" type="number" min="1" required defaultValue={1} />
+                                    <InputError message={errors.weight} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="image">Imagem</Label>
-                                    <input id="image" name="image" type="file" accept="image/*" className={fieldClassName} />
-                                    <InputError message={errors.image} />
+                                    <Label htmlFor="height">Altura (cm)</Label>
+                                    <Input id="height" name="height" type="number" min="1" required defaultValue={1} />
+                                    <InputError message={errors.height} />
                                 </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="width">Largura (cm)</Label>
+                                    <Input id="width" name="width" type="number" min="1" required defaultValue={1} />
+                                    <InputError message={errors.width} />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="length">Comprimento (cm)</Label>
+                                    <Input id="length" name="length" type="number" min="1" required defaultValue={1} />
+                                    <InputError message={errors.length} />
+                                </div>
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="image">Imagem</Label>
+                                <input id="image" name="image" type="file" accept="image/*" className={fieldClassName} />
+                                <InputError message={errors.image} />
                             </div>
 
                             <div className="flex gap-3">
