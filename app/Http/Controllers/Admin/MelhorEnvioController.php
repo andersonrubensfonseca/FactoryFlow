@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ShippingCredential;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
