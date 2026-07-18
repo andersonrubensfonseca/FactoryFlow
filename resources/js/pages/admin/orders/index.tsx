@@ -37,6 +37,10 @@ const statusLabels: Record<string, string> = {
 const shippingStatusLabels: Record<string, string> = {
     ready_to_ship: 'Pronto para envio',
     label_generated: 'Etiqueta gerada',
+    posted: 'Postado/coletado',
+    delivered: 'Entregue',
+    cancelled: 'Cancelado',
+    expired: 'Expirado',
 };
 
 export default function AdminOrdersIndex({ orders }: OrdersIndexProps) {
