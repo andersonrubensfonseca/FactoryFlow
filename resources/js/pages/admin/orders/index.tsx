@@ -36,6 +36,7 @@ const statusLabels: Record<string, string> = {
 
 const shippingStatusLabels: Record<string, string> = {
     ready_to_ship: 'Pronto para envio',
+    label_generated: 'Etiqueta gerada',
 };
 
 export default function AdminOrdersIndex({ orders }: OrdersIndexProps) {

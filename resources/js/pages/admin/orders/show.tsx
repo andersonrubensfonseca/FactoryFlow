@@ -58,6 +58,11 @@ const statusLabels: Record<string, string> = {
     expired: 'Expirado',
 };
 
+const shippingStatusLabels: Record<string, string> = {
+    ready_to_ship: 'Pronto para envio',
+    label_generated: 'Etiqueta gerada',
+};
+
 export default function AdminOrderShow({ order, quotes }: OrderShowProps) {
     return (
         <>
@@ -115,7 +120,7 @@ export default function AdminOrderShow({ order, quotes }: OrderShowProps) {
                     <div>
                         <h2 className="font-medium">Envio</h2>
                         <p className="text-sm text-muted-foreground">
-                            {order.shipping_status === 'ready_to_ship' ? 'Pronto para envio' : 'Ainda não iniciado'}
+                            {order.shipping_status ? (shippingStatusLabels[order.shipping_status] ?? order.shipping_status) : 'Ainda não iniciado'}
                         </p>
                     </div>
                     {order.status === 'paid' && !order.shipping_status && (
