@@ -46,6 +46,12 @@ export default function Checkout({ items, total }: CheckoutProps) {
                                 <InputError message={errors.cpf_cnpj} />
                             </div>
 
+                            <div className="grid gap-2">
+                                <Label htmlFor="phone">Telefone</Label>
+                                <Input id="phone" name="phone" required />
+                                <InputError message={errors.phone} />
+                            </div>
+
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="col-span-2 grid gap-2">
                                     <Label htmlFor="address">Endereço</Label>

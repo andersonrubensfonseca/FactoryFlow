@@ -39,7 +39,9 @@ class OrderController extends Controller
                 'status' => $order->status,
                 'shipping_status' => $order->shipping_status,
                 'payment_method' => $order->payment_method,
-                'total' => (float) $order->total,
+                'total' => (float) $order->total,                
+                'melhor_envio_shipment_id' => $order->melhor_envio_shipment_id,
+                'shipment_label_url' => $order->shipment_label_url,
                 'customer' => [
                     'name' => $order->user->name,
                     'email' => $order->user->email,

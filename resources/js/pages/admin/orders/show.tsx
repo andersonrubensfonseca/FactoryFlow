@@ -1,7 +1,17 @@
-import { Head, Link } from '@inertiajs/react';
+import { Form, Head, Link } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { index, readyToShip } from '@/routes/admin/orders';
+import { calculate, store as storeShipment } from '@/routes/admin/shipments';
+
+interface Quote {
+    id: number;
+    name: string;
+    price: string;
+    delivery_time: number;
+    company: { name: string };
+}
 
 interface OrderItem {
     product_name: string;
@@ -17,6 +27,8 @@ interface OrderShowProps {
         shipping_status: string | null;
         payment_method: string;
         total: number;
+        melhor_envio_shipment_id: string | null;
+        shipment_label_url: string | null;
         customer: { name: string; email: string };
         address: {
             address: string;
@@ -30,6 +42,7 @@ interface OrderShowProps {
         items: OrderItem[];
         created_at: string;
     };
+    quotes?: Quote[] | null;
 }
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
@@ -45,7 +58,7 @@ const statusLabels: Record<string, string> = {
     expired: 'Expirado',
 };
 
-export default function AdminOrderShow({ order }: OrderShowProps) {
+export default function AdminOrderShow({ order, quotes }: OrderShowProps) {
     return (
         <>
             <Head title={`Pedido #${order.id}`} />
@@ -105,7 +118,7 @@ export default function AdminOrderShow({ order }: OrderShowProps) {
                             {order.shipping_status === 'ready_to_ship' ? 'Pronto para envio' : 'Ainda não iniciado'}
                         </p>
                     </div>
-                    {order.status === 'paid' && order.shipping_status !== 'ready_to_ship' && (
+                    {order.status === 'paid' && !order.shipping_status && (
                         <Button asChild>
                             <Link href={readyToShip(order.id)} method="patch">
                                 Marcar como pronto para envio
@@ -113,6 +126,59 @@ export default function AdminOrderShow({ order }: OrderShowProps) {
                         </Button>
                     )}
                 </div>
+
+                {order.shipping_status === 'ready_to_ship' && !order.shipment_label_url && (
+                    <div className="flex flex-col gap-4 rounded-xl border p-4">
+                        <h2 className="font-medium">Frete</h2>
+
+                        {!quotes && (
+                            <Button asChild className="w-fit">
+                                <Link href={calculate(order.id)} method="post">
+                                    Calcular frete
+                                </Link>
+                            </Button>
+                        )}
+
+                        {quotes && (
+                            <Form {...storeShipment.form(order.id)} className="flex flex-col gap-4">
+                                {({ processing }) => (
+                                    <>
+                                        <div className="flex flex-col gap-2">
+                                            {quotes.map((quote) => (
+                                                <label
+                                                    key={quote.id}
+                                                    className="flex items-center gap-3 rounded-md border p-3 text-sm"
+                                                >
+                                                    <input type="radio" name="service_id" value={quote.id} required />
+                                                    <span className="flex-1">
+                                                        {quote.company.name} - {quote.name}
+                                                    </span>
+                                                    <span className="text-muted-foreground">{quote.delivery_time} dias</span>
+                                                    <span className="font-medium">R$ {quote.price}</span>
+                                                </label>
+                                            ))}
+                                        </div>
+                                        <Button type="submit" className="w-fit" disabled={processing}>
+                                            {processing && <Spinner />}
+                                            Gerar etiqueta e agendar coleta
+                                        </Button>
+                                    </>
+                                )}
+                            </Form>
+                        )}
+                    </div>
+                )}
+
+                {order.shipment_label_url && (
+                    <div className="flex flex-col gap-3 rounded-xl border p-4">
+                        <h2 className="font-medium">Etiqueta gerada</h2>
+                        <Button asChild size="sm" variant="outline" className="w-fit">
+                            <a href={order.shipment_label_url} target="_blank" rel="noreferrer">
+                                Ver/baixar etiqueta
+                            </a>
+                        </Button>
+                    </div>
+                )}
             </div>
         </>
     );

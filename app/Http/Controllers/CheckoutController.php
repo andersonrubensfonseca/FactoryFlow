@@ -42,6 +42,7 @@ class CheckoutController extends Controller
 
         $validated = $request->validate([
             'cpf_cnpj' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:20'],
             'address' => ['required', 'string', 'max:255'],
             'address_number' => ['required', 'string', 'max:20'],
             'complement' => ['nullable', 'string', 'max:255'],

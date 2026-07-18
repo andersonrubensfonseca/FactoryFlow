@@ -16,6 +16,7 @@ class Order extends Model
         'total',
         'payment_method',
         'cpf_cnpj',
+        'phone',
         'address',
         'address_number',
         'complement',
@@ -27,6 +28,8 @@ class Order extends Model
         'asaas_payment_id',
         'invoice_url',
         'bank_slip_url',
+        'melhor_envio_shipment_id',
+        'shipment_label_url',
     ];
 
     protected function casts(): array
