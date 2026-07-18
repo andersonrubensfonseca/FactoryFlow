@@ -30,6 +30,7 @@ class Order extends Model
         'bank_slip_url',
         'melhor_envio_shipment_id',
         'shipment_label_url',
+        'tracking_url',
     ];
 
     protected function casts(): array

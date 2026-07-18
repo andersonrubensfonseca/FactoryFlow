@@ -23,6 +23,7 @@ class OrderController extends Controller
                 'status' => $order->status,
                 'total' => (float) $order->total,
                 'payment_method' => $order->payment_method,
+                'shipping_status' => $order->shipping_status,
                 'created_at' => $order->created_at->format('d/m/Y'),
             ]);
 
@@ -49,6 +50,8 @@ class OrderController extends Controller
                 'payment_method' => $order->payment_method,
                 'invoice_url' => $order->invoice_url,
                 'bank_slip_url' => $order->bank_slip_url,
+                'shipping_status' => $order->shipping_status, 
+                'tracking_url' => $order->tracking_url,
                 'items' => $order->items->map(fn ($item) => [
                     'product_name' => $item->product_name,
                     'quantity' => $item->quantity,

@@ -7,6 +7,7 @@ interface Order {
     status: string;
     total: number;
     payment_method: string;
+    shipping_status: string | null
     created_at: string;
 }
 
@@ -39,6 +40,15 @@ const paymentMethodLabels: Record<string, string> = {
     CREDIT_CARD: 'Cartão de crédito',
 };
 
+const shippingStatusLabels: Record<string, string> = {
+    ready_to_ship: 'Separando seu pedido',
+    label_generated: 'Aguardando coleta',
+    posted: 'A caminho',
+    delivered: 'Entregue',
+    cancelled: 'Envio cancelado',
+    expired: 'Envio expirado',
+};
+
 export default function OrdersIndex({ orders }: OrdersIndexProps) {
     return (
         <>
@@ -66,6 +76,11 @@ export default function OrdersIndex({ orders }: OrdersIndexProps) {
                                     <Badge variant={order.status === 'paid' ? 'secondary' : 'outline'}>
                                         {statusLabels[order.status] ?? order.status}
                                     </Badge>
+                                    {order.shipping_status && (
+                                        <Badge variant={order.shipping_status === 'delivered' ? 'secondary' : 'outline'}>
+                                            {shippingStatusLabels[order.shipping_status] ?? order.shipping_status}
+                                        </Badge>
+                                    )}
                                     <span className="font-medium">{currencyFormatter.format(order.total)}</span>
                                 </div>
                             </Link>

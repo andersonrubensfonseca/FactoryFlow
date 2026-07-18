@@ -17,6 +17,8 @@ interface OrderPageProps {
         payment_method: string;
         invoice_url: string | null;
         bank_slip_url: string | null;
+        shipping_status: string | null; 
+        tracking_url: string | null;
         items: OrderItem[];
     };
     pix: { encodedImage: string; payload: string; expirationDate: string } | null;
@@ -33,6 +35,15 @@ const statusLabels: Record<string, string> = {
     failed: 'Falhou',
     canceled: 'Cancelado',
     expired: 'Expirado',
+};
+
+const shippingStatusLabels: Record<string, string> = {
+    ready_to_ship: 'Separando seu pedido',
+    label_generated: 'Aguardando coleta',
+    posted: 'A caminho',
+    delivered: 'Entregue',
+    cancelled: 'Envio cancelado',
+    expired: 'Envio expirado',
 };
 
 export default function OrderShow({ order, pix }: OrderPageProps) {
@@ -101,6 +112,24 @@ export default function OrderShow({ order, pix }: OrderPageProps) {
                                 Pagar com cartão
                             </a>
                         </Button>
+                    </div>
+                )}
+
+                {order.status === 'paid' && order.shipping_status && (
+                    <div className="mb-8 flex items-center justify-between rounded-xl border p-4">
+                        <div>
+                            <h2 className="font-medium">Envio</h2>
+                            <p className="text-sm text-muted-foreground">
+                                {shippingStatusLabels[order.shipping_status] ?? order.shipping_status}
+                            </p>
+                        </div>
+                        {order.tracking_url && (
+                            <Button asChild size="sm" variant="outline">
+                                <a href={order.tracking_url} target="_blank" rel="noreferrer">
+                                    Rastrear pedido
+                                </a>
+                            </Button>
+                        )}
                     </div>
                 )}
 

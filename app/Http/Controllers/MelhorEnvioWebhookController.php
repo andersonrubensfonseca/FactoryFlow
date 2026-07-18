@@ -40,7 +40,12 @@ class MelhorEnvioWebhookController extends Controller
             default => $order->shipping_status,
         };
 
-        $order->update(['shipping_status' => $newStatus]);
+        $trackingUrl = $request->input('data.tracking_url');
+
+        $order->update([
+            'shipping_status' => $newStatus,
+            'tracking_url' => $trackingUrl ?: $order->tracking_url,
+        ]);
 
         return response()->noContent();
     }
