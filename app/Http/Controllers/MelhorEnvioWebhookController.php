@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderShippingUpdated;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class MelhorEnvioWebhookController extends Controller
@@ -42,10 +44,16 @@ class MelhorEnvioWebhookController extends Controller
 
         $trackingUrl = $request->input('data.tracking_url');
 
+        $previousStatus = $order->shipping_status;
+
         $order->update([
             'shipping_status' => $newStatus,
             'tracking_url' => $trackingUrl ?: $order->tracking_url,
         ]);
+
+        if ($newStatus !== $previousStatus && in_array($newStatus, ['posted', 'delivered', 'cancelled', 'expired'], true)) {
+            Mail::to($order->user)->send(new OrderShippingUpdated($order));
+        }
 
         return response()->noContent();
     }
