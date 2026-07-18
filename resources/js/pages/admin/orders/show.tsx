@@ -1,6 +1,6 @@
 import { Form, Head, Link } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button , buttonVariants } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { index, readyToShip } from '@/routes/admin/orders';
 import { calculate, store as storeShipment } from '@/routes/admin/shipments';
@@ -132,11 +132,9 @@ export default function AdminOrderShow({ order, quotes }: OrderShowProps) {
                         <h2 className="font-medium">Frete</h2>
 
                         {!quotes && (
-                            <Button asChild className="w-fit">
-                                <Link href={calculate(order.id)} method="post">
-                                    Calcular frete
-                                </Link>
-                            </Button>
+                            <Link href={calculate(order.id)} method="post" as="button" className={buttonVariants({ className: 'w-fit' })}>
+                                Calcular frete
+                            </Link>
                         )}
 
                         {quotes && (
