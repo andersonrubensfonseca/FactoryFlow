@@ -63,6 +63,7 @@ class OrderController extends Controller
                 ]),
                 'created_at' => $order->created_at->format('d/m/Y H:i'),
             ],
+            'quotes' => session()->pull("shipment_quotes.{$order->id}"),
         ]);
     }
 

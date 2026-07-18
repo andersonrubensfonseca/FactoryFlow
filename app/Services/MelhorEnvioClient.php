@@ -78,7 +78,7 @@ class MelhorEnvioClient
                     'height' => $volume['height'],
                     'width' => $volume['width'],
                     'length' => $volume['length'],
-                    'weight' => $volume['weight'],
+                    'weight' => $volume['weight']/1000,
                 ]],
                 'options' => [
                     'insurance_value' => (float) $order->total,

@@ -12,42 +12,13 @@ use Inertia\Response;
 
 class ShipmentController extends Controller
 {
-    public function calculate(Order $order, MelhorEnvioClient $melhorEnvio): Response
+    public function calculate(Order $order, MelhorEnvioClient $melhorEnvio): RedirectResponse
     {
-        $order->load(['user', 'items']);
+        $quotes = $melhorEnvio->calculate($order);
 
-        return Inertia::render('admin/orders/show', [
-            'order' => [
-                'id' => $order->id,
-                'status' => $order->status,
-                'shipping_status' => $order->shipping_status,
-                'payment_method' => $order->payment_method,
-                'total' => (float) $order->total,
-                'melhor_envio_shipment_id' => $order->melhor_envio_shipment_id,
-                'shipment_label_url' => $order->shipment_label_url,
-                'customer' => [
-                    'name' => $order->user->name,
-                    'email' => $order->user->email,
-                ],
-                'address' => [
-                    'address' => $order->address,
-                    'address_number' => $order->address_number,
-                    'complement' => $order->complement,
-                    'neighborhood' => $order->neighborhood,
-                    'city' => $order->city,
-                    'state' => $order->state,
-                    'zip_code' => $order->zip_code,
-                ],
-                'items' => $order->items->map(fn ($item) => [
-                    'product_name' => $item->product_name,
-                    'quantity' => $item->quantity,
-                    'unit_price' => (float) $item->unit_price,
-                    'subtotal' => (float) $item->subtotal,
-                ]),
-                'created_at' => $order->created_at->format('d/m/Y H:i'),
-            ],
-            'quotes' => $melhorEnvio->calculate($order),
-        ]);
+        session()->put("shipment_quotes.{$order->id}", $quotes);
+
+        return to_route('admin.orders.show', $order);
     }
 
     public function store(Request $request, Order $order, MelhorEnvioClient $melhorEnvio): RedirectResponse
