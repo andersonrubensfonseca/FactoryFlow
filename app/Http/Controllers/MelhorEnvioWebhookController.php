@@ -10,6 +10,10 @@ class MelhorEnvioWebhookController extends Controller
 {
     public function store(Request $request): Response
     {
+        if (! $request->has('event')) {
+            return response()->noContent();
+        }
+
         $signature = hash_hmac('sha256', $request->getContent(), (string) config('services.melhor_envio.client_secret'));
 
         abort_unless(
