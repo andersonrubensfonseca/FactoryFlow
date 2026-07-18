@@ -61,6 +61,9 @@ const statusLabels: Record<string, string> = {
 const shippingStatusLabels: Record<string, string> = {
     ready_to_ship: 'Pronto para envio',
     label_generated: 'Etiqueta gerada',
+    posted: 'Postado/coletado',
+    delivered: 'Entregue',
+    cancelled: 'Cancelado',
 };
 
 export default function AdminOrderShow({ order, quotes }: OrderShowProps) {
