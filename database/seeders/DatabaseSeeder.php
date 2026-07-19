@@ -17,18 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
+        $admin = User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@factoryflow.test',
+        ]);
+        $admin->is_admin = true;
+        $admin->save();
 
         Category::factory()
             ->count(6)
             ->has(Product::factory()->count(8))
             ->create();
-
     }
 }
